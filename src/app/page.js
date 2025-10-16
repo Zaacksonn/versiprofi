@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import Layout from '@/components/Layout';
 import { getFeaturedPosts, getLatestPosts, getCategories } from '@/lib/api';
 
@@ -43,11 +44,13 @@ export default async function HomePage() {
                 <div className="mb-12">
                   <article className="card p-0 overflow-hidden">
                     <div className="relative h-96">
-                      <img
+        <Image
                         src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
-                        alt={featuredPosts[0]?.title}
-                        className="w-full h-full object-cover"
-                      />
+                        alt={featuredPosts[0]?.title || 'Featured article'}
+                        fill
+                        className="object-cover"
+          priority
+        />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                       <div className="absolute bottom-6 left-6 right-6 text-white">
                         <span className="bg-accent text-white px-3 py-1 rounded-full text-sm font-medium mb-4 inline-block">
@@ -80,11 +83,12 @@ export default async function HomePage() {
                     {latestPosts.slice(0, 4).map((post, index) => (
                       <article key={post.id} className="card p-6 hover:shadow-lg transition-shadow duration-300">
                         <div className="flex items-start space-x-4">
-                          <div className="flex-shrink-0 w-20 h-20 bg-gray-200 rounded-lg overflow-hidden">
-                            <img
+                          <div className="flex-shrink-0 w-20 h-20 bg-gray-200 rounded-lg overflow-hidden relative">
+                            <Image
                               src={`https://images.unsplash.com/photo-${1550000000000 + (index + 5) * 1000000}?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80`}
                               alt={post.title}
-                              className="w-full h-full object-cover"
+                              fill
+                              className="object-cover"
                             />
                           </div>
                           <div className="flex-1">
@@ -148,11 +152,12 @@ export default async function HomePage() {
                     {latestPosts.slice(4, 8).map((post) => (
                       <article key={post.id} className="card p-6 hover:shadow-lg transition-shadow duration-300">
                         <div className="flex items-start space-x-4">
-                          <div className="flex-shrink-0 w-24 h-24 bg-gray-200 rounded-lg overflow-hidden">
-                            <img
+                          <div className="flex-shrink-0 w-24 h-24 bg-gray-200 rounded-lg overflow-hidden relative">
+                            <Image
                               src={`https://images.unsplash.com/photo-${1550000000000 + post.id * 1000000}?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80`}
                               alt={post.title}
-                              className="w-full h-full object-cover"
+                              fill
+                              className="object-cover"
                             />
                           </div>
                           <div className="flex-1">
@@ -187,7 +192,7 @@ export default async function HomePage() {
                     ))}
                   </div>
                 </div>
-              </div>
+        </div>
 
               {/* Sidebar - 1 column */}
               <div className="lg:col-span-1">
@@ -290,7 +295,7 @@ export default async function HomePage() {
               </div>
             </div>
           </div>
-        </div>
+    </div>
       </section>
     </Layout>
   );
